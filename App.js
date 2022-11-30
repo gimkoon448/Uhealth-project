@@ -6,13 +6,16 @@ import moment from "moment";
 
 export default function App() {
   const [pin, setPin] = React.useState({
-    latitude: 37.2859248,
-    longitude: 127.0594288,
+    latitude: 37.4604956,
+    longitude: 127.1650932,
   });
   var currentDate = moment().format("MMMM Do YYYY, h:mm:ss a");
   React.useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
+      setTimeout(() => {
+        alert("WARNING!");
+      }, 10000);
       if (status !== "granted") {
         console.log("Permission to access location was denied");
         return;
@@ -31,10 +34,10 @@ export default function App() {
       <MapView
         style={styles.map}
         initialRegion={{
-          latitude: 37.2859248,
-          longitude: 127.0594288,
-          latitudeDelta: 0.0005,
-          longitudeDelta: 0.0005,
+          latitude: 37.4604956,
+          longitude: 127.1650932,
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
         }}
         showsUserLocation={true}
         onUserLocationChange={(e) => {
@@ -68,7 +71,7 @@ export default function App() {
           }}
         >
           <Callout>
-            <Text>This is a Callout</Text>
+            <Text>I am here!!</Text>
           </Callout>
         </Marker>
         <Circle center={pin} radius={100} />
