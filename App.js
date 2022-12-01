@@ -5,17 +5,19 @@ import * as Location from "expo-location";
 import moment from "moment";
 
 export default function App() {
+  var location1 = 37.2859248;
+  var location2 = 127.0594288;
+  var count = 0;
+
   const [pin, setPin] = React.useState({
-    latitude: 37.4604956,
-    longitude: 127.1650932,
+    latitude: 37.2859248,
+    longitude: 127.0594288,
   });
   var currentDate = moment().format("MMMM Do YYYY, h:mm:ss a");
   React.useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
-      setTimeout(() => {
-        alert("WARNING!");
-      }, 10000);
+
       if (status !== "granted") {
         console.log("Permission to access location was denied");
         return;
@@ -27,6 +29,40 @@ export default function App() {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
       });
+      var fnum1 = await Location.getCurrentPositionAsync({});
+
+      function alerting(a, b) {
+        var a2 = a;
+        var b2 = b;
+        for (var i = 0; i < 1; i++) {
+          if (location1 !== a2 && location2 !== b2) {
+          } else {
+            setTimeout(() => {
+              alert("stop");
+            }, 3000);
+            location1 = a2;
+            location2 = b2;
+          }
+        }
+      }
+      // if (count >= 0) {
+      //   setTimeout(() => {
+      //     alert("danger");
+      //   }, 3000);
+      // }
+      alerting(location.coords.latitude, location.coords.longitude);
+      setTimeout(() => {
+        alerting(location.coords.latitude, location.coords.longitude);
+      }, 3000);
+      setTimeout(() => {
+        alerting(location.coords.latitude, location.coords.longitude);
+      }, 3000);
+      setTimeout(() => {
+        alerting(location.coords.latitude, location.coords.longitude);
+      }, 3000);
+      setTimeout(() => {
+        alerting(location.coords.latitude, location.coords.longitude);
+      }, 3000);
     })();
   }, []);
   return (
@@ -34,10 +70,10 @@ export default function App() {
       <MapView
         style={styles.map}
         initialRegion={{
-          latitude: 37.4604956,
-          longitude: 127.1650932,
-          latitudeDelta: 0.005,
-          longitudeDelta: 0.005,
+          latitude: 37.2859248,
+          longitude: 127.0594288,
+          latitudeDelta: 0.0005,
+          longitudeDelta: 0.0005,
         }}
         showsUserLocation={true}
         onUserLocationChange={(e) => {
@@ -71,7 +107,7 @@ export default function App() {
           }}
         >
           <Callout>
-            <Text>I am here!!</Text>
+            <Text>This is a Callout</Text>
           </Callout>
         </Marker>
         <Circle center={pin} radius={100} />
