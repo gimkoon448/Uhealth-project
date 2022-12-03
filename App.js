@@ -7,11 +7,12 @@ import moment from "moment";
 export default function App() {
   var location1 = 37.2859248;
   var location2 = 127.0594288;
-  var count = 0;
+  var speed = 1;
 
   const [pin, setPin] = React.useState({
     latitude: 37.2859248,
     longitude: 127.0594288,
+    speed: 0.0,
   });
   var currentDate = moment().format("MMMM Do YYYY, h:mm:ss a");
   React.useEffect(() => {
@@ -28,20 +29,28 @@ export default function App() {
       setPin({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
+        speed: location.coords.speed,
       });
       var fnum1 = await Location.getCurrentPositionAsync({});
 
-      function alerting(a, b) {
+      function alerting(a, b, c) {
         var a2 = a;
         var b2 = b;
+
         for (var i = 0; i < 1; i++) {
           if (location1 !== a2 && location2 !== b2) {
           } else {
             setTimeout(() => {
               alert("stop");
-            }, 3000);
+            }, 1000);
             location1 = a2;
             location2 = b2;
+          }
+
+          if (c < speed) {
+            setTimeout(() => {
+              alert("danger");
+            }, 1000);
           }
         }
       }
@@ -50,18 +59,38 @@ export default function App() {
       //     alert("danger");
       //   }, 3000);
       // }
-      alerting(location.coords.latitude, location.coords.longitude);
+      alerting(
+        location.coords.latitude,
+        location.coords.longitude,
+        location.coords.speed
+      );
       setTimeout(() => {
-        alerting(location.coords.latitude, location.coords.longitude);
+        alerting(
+          location.coords.latitude,
+          location.coords.longitude,
+          location.coords.speed
+        );
       }, 3000);
       setTimeout(() => {
-        alerting(location.coords.latitude, location.coords.longitude);
+        alerting(
+          location.coords.latitude,
+          location.coords.longitude,
+          location.coords.speed
+        );
       }, 3000);
       setTimeout(() => {
-        alerting(location.coords.latitude, location.coords.longitude);
+        alerting(
+          location.coords.latitude,
+          location.coords.longitude,
+          location.coords.speed
+        );
       }, 3000);
       setTimeout(() => {
-        alerting(location.coords.latitude, location.coords.longitude);
+        alerting(
+          location.coords.latitude,
+          location.coords.longitude,
+          location.coords.speed
+        );
       }, 3000);
     })();
   }, []);
